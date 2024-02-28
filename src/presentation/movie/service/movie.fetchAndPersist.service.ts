@@ -5,18 +5,25 @@ import { Model } from 'mongoose';
 import { Movie } from 'src/domain/model/movie.mongodb';
 import { MovieDetailsDto } from '../dto/response/movie.details.dto';
 import { lastValueFrom } from 'rxjs';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class MovieFetchAndPersistService {
+  private readonly tmdbApiKey: string;
   constructor(
     private httpService: HttpService,
     @InjectModel('Movie') private movieModel: Model<Movie>,
-  ) {}
+    private configService: ConfigService,
+  ) {
+    this.tmdbApiKey = this.configService.get<string>('TMDB_API_KEY', {
+      infer: true,
+    });
+  }
 
   async discoverAndPersistMovies(): Promise<boolean> {
     const discoverUrl = `https://api.themoviedb.org/3/discover/movie`;
     const params = {
-      api_key: '5e7065ae6fad468eef40ea1333757026',
+      api_key: this.tmdbApiKey,
       sort_by: 'release_date.asc',
       'vote_count.gte': 1500,
       'vote_average.gte': 8.4,
@@ -42,7 +49,7 @@ export class MovieFetchAndPersistService {
     const response = await this.httpService.get<MovieDetailsDto>(
       movieDetailsUrl,
       {
-        params: { api_key: '5e7065ae6fad468eef40ea1333757026' },
+        params: { api_key: this.tmdbApiKey },
       },
     );
     const result = await lastValueFrom(response);
