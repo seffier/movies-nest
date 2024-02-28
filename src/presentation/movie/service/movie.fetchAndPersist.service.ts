@@ -1,11 +1,12 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Movie } from 'src/domain/model/movie.mongodb';
 import { MovieDetailsDto } from '../dto/response/movie.details.dto';
 import { lastValueFrom } from 'rxjs';
 import { ConfigService } from '@nestjs/config';
+import { ApiErrorEnum } from 'src/presentation/enum/api.error.enum';
 
 @Injectable()
 export class MovieFetchAndPersistService {
@@ -38,22 +39,26 @@ export class MovieFetchAndPersistService {
         const movieDetails = await this.fetchMovieDetails(movie.id);
         await this.persistMovieDetails(movieDetails);
       }
+      return true;
     } catch (error) {
-      console.error('Error fetching movies: ', error);
+      throw new HttpException(ApiErrorEnum.MOVIE_FETCHING_ERROR, 400);
     }
-    return true;
   }
 
   private async fetchMovieDetails(movieId: number): Promise<MovieDetailsDto> {
     const movieDetailsUrl = `https://api.themoviedb.org/3/movie/${movieId}`;
-    const response = await this.httpService.get<MovieDetailsDto>(
-      movieDetailsUrl,
-      {
-        params: { api_key: this.tmdbApiKey },
-      },
-    );
-    const result = await lastValueFrom(response);
-    return result.data;
+    try {
+      const response = await this.httpService.get<MovieDetailsDto>(
+        movieDetailsUrl,
+        {
+          params: { api_key: this.tmdbApiKey },
+        },
+      );
+      const result = await lastValueFrom(response);
+      return result.data;
+    } catch (error) {
+      throw new HttpException(ApiErrorEnum.MOVIE_FETCHING_ERROR, 400);
+    }
   }
 
   private async persistMovieDetails(
