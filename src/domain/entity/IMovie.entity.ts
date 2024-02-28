@@ -6,8 +6,10 @@ export interface IMovieEntity {
   voteAverage: number;
   voteCount: number;
   releaseDate: string;
-  genre: {
-    id: number;
-    name: string;
-  };
+  genre: [
+    {
+      id: number;
+      name: string;
+    },
+  ];
 }
