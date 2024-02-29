@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { MovieFetchAndPersistService } from '../service/movie.fetchAndPersist.service';
 import { Movie } from 'src/domain/model/movie.mongodb';
 import { MovieReadService } from '../service/movie.read.service';
@@ -32,5 +32,10 @@ export class MovieController {
   @Post('')
   async save(@Body() req: MovieSaveRequestDto): Promise<SuccessDto> {
     return await this.movieWriteService.save(req);
+  }
+
+  @Delete('/:id')
+  async removeById(@Param('id') id: string): Promise<SuccessDto> {
+    return await this.movieWriteService.removeById(id);
   }
 }
