@@ -16,7 +16,7 @@ export class MovieWriteService {
     if (existingMovie) {
       throw new HttpException(ApiErrorEnum.MOVIE_EXISTS, 400);
     }
-    const newMovie = new this.movieModel({
+    await this.movieModel.create({
       name: req.name,
       overview: req.overview,
       popularity: req.popularity,
@@ -25,7 +25,6 @@ export class MovieWriteService {
       releaseDate: req.releaseDate,
       genre: req.genre,
     });
-    await newMovie.save();
     return { success: true };
   }
 

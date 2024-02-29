@@ -39,6 +39,7 @@ describe('MovieReadService', () => {
         exec: jest.fn().mockResolvedValue(expectedMovies),
       });
       const movies = await service.findAll();
+      expect(mockMovieModel.find).toHaveBeenCalledTimes(1);
       expect(movies).toEqual(expectedMovies);
     });
 
@@ -47,6 +48,7 @@ describe('MovieReadService', () => {
         exec: jest.fn().mockResolvedValue([]),
       });
       const movies = await service.findAll();
+      expect(mockMovieModel.find).toHaveBeenCalledTimes(1);
       expect(movies).toEqual([]);
     });
   });
@@ -60,6 +62,7 @@ describe('MovieReadService', () => {
       });
 
       const movie = await service.findOneById(movieId);
+      expect(mockMovieModel.findById).toHaveBeenCalledWith(movieId);
       expect(movie).toEqual(expectedMovie);
     });
 
@@ -78,6 +81,7 @@ describe('MovieReadService', () => {
       await expect(service.findOneById(validId)).rejects.toThrow(
         ApiErrorEnum.MOVIE_NOT_FOUND,
       );
+      expect(mockMovieModel.findById).toHaveBeenCalledWith(validId);
     });
   });
 });
