@@ -5,7 +5,9 @@ import { MovieReadService } from '../service/movie.read.service';
 import { SuccessDto } from '../dto/response/success.response.dto';
 import { MovieWriteService } from '../service/movie.write.service';
 import { MovieSaveRequestDto } from '../dto/request/movie.save.request.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('movies')
 @Controller('movies')
 export class MovieController {
   constructor(
