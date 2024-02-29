@@ -55,14 +55,13 @@ describe('MovieReadService', () => {
 
   describe('findOneById', () => {
     it('should return a single movie if valid id provided', async () => {
-      const movieId = '65e05438b45d4e289e2ffe57';
       const expectedMovie = movieListMockData[0];
       mockMovieModel.findById.mockReturnValue({
         exec: jest.fn().mockResolvedValue(expectedMovie),
       });
 
-      const movie = await service.findOneById(movieId);
-      expect(mockMovieModel.findById).toHaveBeenCalledWith(movieId);
+      const movie = await service.findOneById(expectedMovie._id);
+      expect(mockMovieModel.findById).toHaveBeenCalledWith(expectedMovie._id);
       expect(movie).toEqual(expectedMovie);
     });
 
@@ -74,7 +73,7 @@ describe('MovieReadService', () => {
     });
 
     it('should throw an error if movie not found', async () => {
-      const validId = '65e05439b45d4e289e2ffe12';
+      const validId = movieListMockData[0]._id;
       mockMovieModel.findById.mockReturnValue({
         exec: jest.fn().mockResolvedValue(null),
       });
