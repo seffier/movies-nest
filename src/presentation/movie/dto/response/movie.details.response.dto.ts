@@ -1,3 +1,5 @@
+import { GenreDto } from '../genre.dto';
+
 export class MovieDetailsDto {
   id: string;
   original_title: string;
@@ -6,10 +8,5 @@ export class MovieDetailsDto {
   vote_average: number;
   vote_count: number;
   release_date: string;
-  genres: genre[];
-}
-
-class genre {
-  id: number;
-  name: string;
+  genres: GenreDto[];
 }

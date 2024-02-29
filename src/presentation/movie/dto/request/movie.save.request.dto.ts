@@ -8,6 +8,7 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
+import { GenreDto } from '../genre.dto';
 
 export class MovieSaveRequestDto {
   @IsNotEmpty()
@@ -72,24 +73,4 @@ export class MovieSaveRequestDto {
   @Type(() => GenreDto)
   @ApiProperty({ type: () => [GenreDto] })
   genre: GenreDto[];
-}
-
-class GenreDto {
-  @IsNumber()
-  @IsNotEmpty()
-  @ApiProperty({
-    type: Number,
-    description: 'Id of the genre',
-    example: 14,
-  })
-  id: number;
-
-  @IsNotEmpty()
-  @IsString()
-  @ApiProperty({
-    type: String,
-    description: 'Name of the genre',
-    example: 'Fantasy',
-  })
-  name: string;
 }

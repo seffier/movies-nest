@@ -7,6 +7,7 @@ import { MovieDetailsDto } from '../dto/response/movie.details.response.dto';
 import { lastValueFrom } from 'rxjs';
 import { ConfigService } from '@nestjs/config';
 import { ApiErrorEnum } from 'src/presentation/enum/api.error.enum';
+import { SuccessDto } from '../dto/response/success.response.dto';
 
 @Injectable()
 export class MovieFetchAndPersistService {
@@ -21,7 +22,7 @@ export class MovieFetchAndPersistService {
     });
   }
 
-  async discoverAndPersistMovies(): Promise<boolean> {
+  async discoverAndPersistMovies(): Promise<SuccessDto> {
     const discoverUrl = `https://api.themoviedb.org/3/discover/movie`;
     const params = {
       api_key: this.tmdbApiKey,
@@ -39,7 +40,7 @@ export class MovieFetchAndPersistService {
         const movieDetails = await this.fetchMovieDetails(movie.id);
         await this.persistMovieDetails(movieDetails);
       }
-      return true;
+      return { success: true };
     } catch (error) {
       console.error('Error message while discover and fetch: ', error);
       throw new HttpException(ApiErrorEnum.MOVIE_FETCHING_ERROR, 400);
