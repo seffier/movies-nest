@@ -67,7 +67,9 @@ export class MovieFetchAndPersistService {
   private async persistMovieDetails(
     movieDto: MovieDetailsDto,
   ): Promise<boolean> {
-    const existingMovie = await this.movieModel.findOne({ id: movieDto.id });
+    const existingMovie = await this.movieModel.findOne({
+      tmdbId: movieDto.id,
+    });
     if (!existingMovie) {
       await this.movieModel.create({
         tmdbId: movieDto.id,
