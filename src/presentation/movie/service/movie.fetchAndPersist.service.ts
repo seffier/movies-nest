@@ -3,7 +3,7 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Movie } from 'src/domain/model/movie.mongodb';
-import { MovieDetailsDto } from '../dto/response/movie.details.dto';
+import { MovieDetailsDto } from '../dto/response/movie.details.response.dto';
 import { lastValueFrom } from 'rxjs';
 import { ConfigService } from '@nestjs/config';
 import { ApiErrorEnum } from 'src/presentation/enum/api.error.enum';
