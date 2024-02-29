@@ -1,13 +1,13 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { MovieFetchAndPersistService } from '../service/movie.fetchAndPersist.service';
 import { Movie } from 'src/domain/model/movie.mongodb';
-import { MovieService } from '../service/movie.service';
+import { MovieReadService } from '../service/movie.read.service';
 
 @Controller('movies')
 export class MovieController {
   constructor(
     private readonly movieFetchAndPersistService: MovieFetchAndPersistService,
-    private readonly movieService: MovieService,
+    private readonly movieReadService: MovieReadService,
   ) {}
 
   @Get('/fetch-and-persist')
@@ -17,6 +17,11 @@ export class MovieController {
 
   @Get('')
   async findAll(): Promise<Movie[]> {
-    return await this.movieService.findAll();
+    return await this.movieReadService.findAll();
+  }
+
+  @Get('/:id')
+  async findById(@Param('id') id: string) {
+    return await this.movieReadService.findOneById(id);
   }
 }

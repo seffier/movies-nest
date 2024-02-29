@@ -1,14 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IMovieEntity } from '../entity/IMovie.entity';
-import { Document, Types } from 'mongoose';
+import { Document } from 'mongoose';
 
 @Schema({
   collection: 'netflix.movies',
 })
 export class Movie extends Document implements IMovieEntity {
-  @Prop({ type: Types.ObjectId })
-  _id: Types.ObjectId;
-
   @Prop()
   tmdbId: string;
 

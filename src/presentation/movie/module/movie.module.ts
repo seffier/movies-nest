@@ -4,14 +4,14 @@ import { MovieFetchAndPersistService } from '../service/movie.fetchAndPersist.se
 import { HttpModule } from '@nestjs/axios';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MovieSchema } from 'src/domain/model/movie.mongodb';
-import { MovieService } from '../service/movie.service';
+import { MovieReadService } from '../service/movie.read.service';
 
 @Module({
   imports: [
     HttpModule,
     MongooseModule.forFeature([{ name: 'Movie', schema: MovieSchema }]),
   ],
-  providers: [MovieFetchAndPersistService, MovieService],
+  providers: [MovieFetchAndPersistService, MovieReadService],
   controllers: [MovieController],
 })
 export class MovieModule {}

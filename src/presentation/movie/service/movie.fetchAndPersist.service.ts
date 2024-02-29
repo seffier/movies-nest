@@ -41,7 +41,7 @@ export class MovieFetchAndPersistService {
       }
       return true;
     } catch (error) {
-      console.error('Error message: ', error);
+      console.error('Error message while discover and fetch: ', error);
       throw new HttpException(ApiErrorEnum.MOVIE_FETCHING_ERROR, 400);
     }
   }
@@ -58,7 +58,7 @@ export class MovieFetchAndPersistService {
       const result = await lastValueFrom(response);
       return result.data;
     } catch (error) {
-      console.error('Error message: ', error);
+      console.error('Error message while fetching: ', error);
       throw new HttpException(ApiErrorEnum.MOVIE_FETCHING_ERROR, 400);
     }
   }
