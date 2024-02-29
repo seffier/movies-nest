@@ -69,7 +69,7 @@ export class MovieFetchAndPersistService {
   ): Promise<boolean> {
     const existingMovie = await this.movieModel.findOne({ id: movieDto.id });
     if (!existingMovie) {
-      const newMovie = new this.movieModel({
+      await this.movieModel.create({
         tmdbId: movieDto.id,
         name: movieDto.original_title,
         overview: movieDto.overview,
@@ -82,7 +82,6 @@ export class MovieFetchAndPersistService {
           name: item.name,
         })),
       });
-      await newMovie.save();
     }
     return true;
   }
