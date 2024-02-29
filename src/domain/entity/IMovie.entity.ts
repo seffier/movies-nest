@@ -1,5 +1,5 @@
 export interface IMovieEntity {
-  id: string;
+  tmdbId: string;
   name: string;
   overview: string;
   popularity: number;

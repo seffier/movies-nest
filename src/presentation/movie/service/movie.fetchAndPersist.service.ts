@@ -41,6 +41,7 @@ export class MovieFetchAndPersistService {
       }
       return true;
     } catch (error) {
+      console.error('Error message: ', error);
       throw new HttpException(ApiErrorEnum.MOVIE_FETCHING_ERROR, 400);
     }
   }
@@ -57,6 +58,7 @@ export class MovieFetchAndPersistService {
       const result = await lastValueFrom(response);
       return result.data;
     } catch (error) {
+      console.error('Error message: ', error);
       throw new HttpException(ApiErrorEnum.MOVIE_FETCHING_ERROR, 400);
     }
   }
@@ -67,6 +69,7 @@ export class MovieFetchAndPersistService {
     const existingMovie = await this.movieModel.findOne({ id: movieDto.id });
     if (!existingMovie) {
       const newMovie = new this.movieModel({
+        tmdbId: movieDto.id,
         name: movieDto.original_title,
         overview: movieDto.overview,
         popularity: movieDto.popularity,
