@@ -1,10 +1,10 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { Movie } from 'src/domain/model/movie.mongodb';
-import { ApiErrorEnum } from 'src/presentation/enum/api.error.enum';
-import { ValidationErrorEnum } from 'src/presentation/enum/validation.error.enum';
+import { Movie } from '../../../domain/model/movie.mongodb';
+import { ApiErrorEnum } from '../../enum/api.error.enum';
 import { MovieListResponseDto } from '../dto/response/movie.list.response.dto';
+import { ValidationErrorEnum } from '../../enum/validation.error.enum';
 
 @Injectable()
 export class MovieReadService {
