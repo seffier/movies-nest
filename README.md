@@ -38,3 +38,12 @@ You can use swagger to check api documentation and test endpoints as you like. A
 - Axios --> Used to fetch data from TMDB APIs
 - Jest --> Used to write unit tests
 
+## Containerization
+```bash
+# docker build
+$ docker build -t movies-nest-app .
+# docker run
+$ docker run -t movies-nest-app .
+# or if windows use docker desktop to run
+```
+
