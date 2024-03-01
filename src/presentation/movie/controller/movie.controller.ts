@@ -54,6 +54,10 @@ export class MovieController {
   }
 
   @Delete('/:id')
+  @ApiOkResponse({
+    description: 'Success Scenario',
+    type: SuccessDto,
+  })
   @ApiParam({ name: 'id', description: 'Movie ID' })
   async removeById(@Param('id') id: string): Promise<SuccessDto> {
     return await this.movieWriteService.removeById(id);
